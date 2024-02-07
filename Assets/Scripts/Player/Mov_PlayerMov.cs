@@ -17,16 +17,19 @@ public class Mov_PlayerMov : MonoBehaviour
     private Vector2 _ve2PlayerPosition;
     private Vector3 _ve3PlayerMovement;
     private Vector3 _ve3CameraRotation;
-    public bool booIsPlayerCrouch;
+    public bool booIsPlayerCrouch = false;
     private bool booIsPlayerRunning;    
     private float numPlayerCurrentSpeed;
     [SerializeField] float numPlayerSprintSpeed = 6.5f;
     [SerializeField] float numPlayerGravity = 9.81f;
     [SerializeField] float numPlayerNormSpeed = 4f;
-    [SerializeField] float crouchSpeed, normalHeight, crouchHeigth;
+    public float crouchHeight = 1.0f;
+    private float originalHeight;
     Vector3 Offset;
     
     float numCamRotationSpeed = 1f;
+    private float rayDistance = 1.0f;
+
     void Awake()
     {
         //SE INICIALIZAN LOS CONTROLES DEL JUGADOR
@@ -49,7 +52,8 @@ public class Mov_PlayerMov : MonoBehaviour
     }
     private void Start()
     {
-        camMainCamera = CinemachineCore.Instance.GetActiveBrain(0).OutputCamera;        
+        camMainCamera = CinemachineCore.Instance.GetActiveBrain(0).OutputCamera;
+        originalHeight = _chcPlayerController.height;
     }
     void FixedUpdate()
     {
@@ -100,14 +104,43 @@ public class Mov_PlayerMov : MonoBehaviour
             Quaternion quaCameraRotation = Quaternion.Euler(0f, camMainCamera.transform.eulerAngles.y, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, quaCameraRotation, numCamRotationSpeed * Time.deltaTime);
             Debug.Log("MIRANDO HACIA LOS LADOS");
-        }        
-            FnPlayerCrouch();
+        }
+        Crouch();
     }
 
     public void FnSetAnimation()
     {
         aniPlayerAnimator.SetFloat("X",_ve2PlayerPosition.x);
         aniPlayerAnimator.SetFloat("Y",_ve2PlayerPosition.y);
+    }
+    void Crouch()
+    {
+        if (pyiPlayerInput.actions["Sneak"].IsPressed())
+        {
+            _chcPlayerController.height = crouchHeight;
+            transform.localScale = new(crouchHeight, crouchHeight, crouchHeight);
+        }
+        else
+        {
+            StandUp();
+        }
+    }
+
+    void StandUp()
+    {
+        var castOrigin = transform.position + new Vector3(0, originalHeight/2,0);
+        // Comprueba si hay un objeto encima
+        if (Physics.Raycast(castOrigin, Vector3.up, out RaycastHit hit, rayDistance))
+        {
+            Debug.Log("ARRIBA HAY ALGO");
+            Debug.DrawRay(castOrigin, Vector3.up, Color.blue, rayDistance);
+            Crouch();
+        }
+        else
+        {
+            _chcPlayerController.height = originalHeight;
+            transform.localScale = new(originalHeight, originalHeight, originalHeight);
+        }        
     }
     public void FnPlayerCrouch()
     {
@@ -117,8 +150,7 @@ public class Mov_PlayerMov : MonoBehaviour
         }
         if(booIsPlayerCrouch == true)
         {
-            _chcPlayerController.height = _chcPlayerController.height -crouchSpeed * Time.deltaTime;
-            
+                  
         }
           
     }
