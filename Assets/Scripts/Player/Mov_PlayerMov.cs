@@ -2,6 +2,7 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class Mov_PlayerMov : MonoBehaviour
 {
@@ -20,13 +21,14 @@ public class Mov_PlayerMov : MonoBehaviour
     public bool booIsPlayerCrouch = false;
     private bool booIsPlayerRunning;    
     private float numPlayerCurrentSpeed;
-    [SerializeField] float numPlayerSprintSpeed = 6.5f;
+    [SerializeField] float numPlayerSprintSpeed = 6f;
     [SerializeField] float numPlayerGravity = 9.81f;
     [SerializeField] float numPlayerNormSpeed = 4f;
     public float crouchHeight = 1.0f;
+    public float crouchSpeed = 2f;
     private float originalHeight;
     Vector3 Offset;
-    
+    [SerializeField] LayerMask roof;
     float numCamRotationSpeed = 1f;
     private float rayDistance = 1.0f;
 
@@ -88,14 +90,28 @@ public class Mov_PlayerMov : MonoBehaviour
         booIsPlayerRunning = pyiPlayerInput.actions["Run"].IsPressed();
         if (booIsPlayerRunning)
         {
-            //SI ESTA CORRIENDO SE CAMBIA LA VELOCIDAD ACTUAL POR LA DE CORRIENDO
-            numPlayerCurrentSpeed = numPlayerSprintSpeed;
+            if (booIsPlayerCrouch)
+            {
+                //SI ESTA AGACHADO LA VELOCIDAD DISMINUYE
+                numPlayerCurrentSpeed = crouchSpeed;
+            }
+            else
+            {
+                //SI ESTA CORRIENDO SE CAMBIA LA VELOCIDAD ACTUAL POR LA DE CORRIENDO
+                numPlayerCurrentSpeed = numPlayerSprintSpeed;
+            }
+            
+        }
+        else if(booIsPlayerCrouch)
+        {
+            //SI ESTA AGACHADO LA VELOCIDAD DISMINUYE
+            numPlayerCurrentSpeed = crouchSpeed;
         }
         else
         {
             //SI NO, SE MANTIENE LA VELOCIDAD ESTANDAR
             numPlayerCurrentSpeed = numPlayerNormSpeed;
-        }        
+        }
         
 
         //SI EL PERSONAJE SE ESTÁ MOVIENDO, ROTA EL PERSONAJE PARA QUE MIRE EN LA DIRECCIÓN DE LA CAMARA
@@ -105,7 +121,27 @@ public class Mov_PlayerMov : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, quaCameraRotation, numCamRotationSpeed * Time.deltaTime);
             Debug.Log("MIRANDO HACIA LOS LADOS");
         }
-        Crouch();
+        float rayDistance = 10f;
+        RaycastHit hit;
+        Ray rayPlayerHead = new Ray(transform.position, transform.up);
+        booIsPlayerCrouch = pyiPlayerInput.actions["Sneak"].IsPressed();
+        if (booIsPlayerCrouch)
+        {
+            Crouch();
+        }
+        else
+        {
+            if (Physics.Raycast(rayPlayerHead, out hit, rayDistance, roof))
+            {
+                Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * rayDistance, Color.red);
+                Debug.Log("ARRIBA HAY ALGO");
+                Crouch();
+            }
+            else
+            {
+                StandUp();
+            }
+        }
     }
 
     public void FnSetAnimation()
@@ -114,45 +150,16 @@ public class Mov_PlayerMov : MonoBehaviour
         aniPlayerAnimator.SetFloat("Y",_ve2PlayerPosition.y);
     }
     void Crouch()
-    {
-        if (pyiPlayerInput.actions["Sneak"].IsPressed())
-        {
-            _chcPlayerController.height = crouchHeight;
-            transform.localScale = new(crouchHeight, crouchHeight, crouchHeight);
-        }
-        else
-        {
-            StandUp();
-        }
+    {        
+        float targetHeight = booIsPlayerCrouch ? crouchHeight : originalHeight;
+        _chcPlayerController.height = Mathf.Lerp(_chcPlayerController.height, targetHeight, 100f * Time.deltaTime);
+        transform.localScale = new(crouchHeight, crouchHeight, crouchHeight);
     }
 
     void StandUp()
-    {
-        var castOrigin = transform.position + new Vector3(0, originalHeight/2,0);
-        // Comprueba si hay un objeto encima
-        if (Physics.Raycast(castOrigin, Vector3.up, out RaycastHit hit, rayDistance))
-        {
-            Debug.Log("ARRIBA HAY ALGO");
-            Debug.DrawRay(castOrigin, Vector3.up, Color.blue, rayDistance);
-            Crouch();
-        }
-        else
-        {
-            _chcPlayerController.height = originalHeight;
-            transform.localScale = new(originalHeight, originalHeight, originalHeight);
-        }        
+    {        
+        float targetHeight = booIsPlayerCrouch ? crouchHeight : originalHeight;    
+        _chcPlayerController.height = Mathf.Lerp(_chcPlayerController.height, targetHeight, 100f * Time.deltaTime);
+        transform.localScale = new(originalHeight, originalHeight, originalHeight);
     }
-    public void FnPlayerCrouch()
-    {
-        if (pyiPlayerInput.actions["Sneak"].IsPressed())
-        {
-            booIsPlayerCrouch = !booIsPlayerCrouch;
-        }
-        if(booIsPlayerCrouch == true)
-        {
-                  
-        }
-          
-    }
-    
 }
