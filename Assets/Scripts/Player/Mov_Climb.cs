@@ -1,42 +1,78 @@
+using StarterAssets;
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Mov_Climb : MonoBehaviour
 {
-    public PlayerInput pyiPlayerInput;    
-    public float climbSpeed = 3.0f; // Velocidad de subida    
-    private bool isClimbing = false; // Estado de subida
-
-    void Start()
+    #region Variables:
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] float numMaxDistanceRay = 1f;
+    CharacterController characterController;
+    PlayerInput playerInput;
+    bool booIsClimbing;
+    bool booWantClimb;
+    #endregion
+    #region pruebas
+    Animator animator;
+    FirstPersonController firstPersonController;
+    IEnumerator ienClimbing;
+    BasicRigidBodyPush basicRigidBodyPush;
+    #endregion
+  
+    private void Start()
     {
-        pyiPlayerInput = GetComponent<PlayerInput>();
+        characterController = GetComponentInParent<CharacterController>();
+        playerInput = GetComponentInParent<PlayerInput>();
+        animator = GetComponentInParent<Animator>();
+        firstPersonController = GetComponentInParent<FirstPersonController>();
+        basicRigidBodyPush = GetComponentInParent<BasicRigidBodyPush>();
     }
-
-    
-    void Update()
+    private void FixedUpdate()
     {
-        if (isClimbing)
+        ienClimbing = FnClimb();
+        //Vector3 ve3CurrentPostion = gameobject.transform.position;
+        Ray rayPlayerHead = new Ray(transform.position, transform.forward);
+        RaycastHit ryhPlayerHeadHit; //DETECTA COLISION PARA ESCALAR
+        //booIsClimbing = false;
+        if (Physics.Raycast(rayPlayerHead.origin, rayPlayerHead.direction, out ryhPlayerHeadHit, numMaxDistanceRay, layerMask))
         {
-            transform.Translate(Vector3.up * climbSpeed * Time.deltaTime);
+                basicRigidBodyPush.canPush = true;
+                booWantClimb = playerInput.actions["Climb"].WasPressedThisFrame();
+                Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * numMaxDistanceRay, Color.red);
+                if (booWantClimb && !booIsClimbing)
+                {
+                    basicRigidBodyPush.canPush = false;
+                    booIsClimbing = true;
+                    Debug.Log($"Point: {ryhPlayerHeadHit.point}");
+                    StartCoroutine(ienClimbing);
+                }                        
+        }
+        else
+        {
+            Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * numMaxDistanceRay, Color.white);
+            basicRigidBodyPush.canPush = false;
+        }
+        if (booIsClimbing == false)
+        {
+            StopCoroutine(ienClimbing);
         }
     }
-    void OnTriggerEnter(Collider other)
+    //CORUTINA PARA EL EVENTO DE ESCALAR
+    IEnumerator FnClimb()
     {
-        Debug.Log(other.gameObject.name);
-        if (other.gameObject.CompareTag("Box")) // Asegúrate de que la caja tenga la etiqueta "Caja"
+        if (booIsClimbing)
         {
-            isClimbing = pyiPlayerInput.actions["Interact"].WasPressedThisFrame();
-            Debug.Log("SUBEEEEE");
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Box"))
-        {
-            isClimbing = false;
-        }
+            firstPersonController.enabled = false;
+            animator.applyRootMotion = true;
+            animator.SetBool("IsClimbing", true);
+            yield return new WaitForSecondsRealtime(2);
+            animator.SetBool("IsClimbing", false);
+            firstPersonController.enabled = true;
+            booIsClimbing = false;
+            animator.applyRootMotion = false;
+        }        
     }
 }

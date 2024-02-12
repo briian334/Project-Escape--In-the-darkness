@@ -66,9 +66,9 @@ public class Mov_PlayerMov : MonoBehaviour
             numCamRotationSpeed = pov.m_HorizontalAxis.m_MaxSpeed * 500;
         }
         //SE INICIALIZAN VECTORES DE POSICION Y MOVIMIENTO PARA EL JUGADOR
-        _ve2PlayerPosition = pyiPlayerInput.actions["MovePlayer"].ReadValue<Vector2>();
+        _ve2PlayerPosition = pyiPlayerInput.actions["Move"].ReadValue<Vector2>();
         _ve3PlayerMovement = new(_ve2PlayerPosition.x, 0, _ve2PlayerPosition.y);
-        Vector2 vector = pyiPlayerInput.actions["CameraLook"].ReadValue<Vector2>();
+        Vector2 vector = pyiPlayerInput.actions["Look"].ReadValue<Vector2>();
         _ve3CameraRotation = new(0,vector.x,0);
         //SE OBTIENEN LOS VECTORES DE DIRECCION DE LA CAMARA
         _ve3CameraForward = camMainCamera.transform.forward;
@@ -87,7 +87,7 @@ public class Mov_PlayerMov : MonoBehaviour
         _chcPlayerController.Move(numPlayerCurrentSpeed * ve3DesiredMov.normalized * Time.deltaTime);
         
         //SE COMPRUEBA SI EL JUGADOR ESTA CORRIENDO
-        booIsPlayerRunning = pyiPlayerInput.actions["Run"].IsPressed();
+        booIsPlayerRunning = pyiPlayerInput.actions["Sprint"].IsPressed();
         if (booIsPlayerRunning)
         {
             if (booIsPlayerCrouch)
@@ -124,7 +124,7 @@ public class Mov_PlayerMov : MonoBehaviour
         float rayDistance = 10f;
         RaycastHit hit;
         Ray rayPlayerHead = new Ray(transform.position, transform.up);
-        booIsPlayerCrouch = pyiPlayerInput.actions["Sneak"].IsPressed();
+        booIsPlayerCrouch = pyiPlayerInput.actions["Crouch"].IsPressed();
         if (booIsPlayerCrouch)
         {
             Crouch();
