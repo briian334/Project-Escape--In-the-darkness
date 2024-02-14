@@ -1,3 +1,4 @@
+using DG.Tweening;
 using StarterAssets;
 using System.Collections;
 using Unity.VisualScripting;
@@ -20,8 +21,11 @@ public class Mov_Climb : MonoBehaviour
     FirstPersonController firstPersonController;
     IEnumerator ienClimbing;
     BasicRigidBodyPush basicRigidBodyPush;
+    [SerializeField] LayerMask ducto;
+    public Transform puntoDeEntrada; // Punto de entrada al ducto
+    public float duracionAnimacion = 2f; // Duración de la animación
     #endregion
-  
+
     private void Start()
     {
         characterController = GetComponentInParent<CharacterController>();
@@ -40,7 +44,7 @@ public class Mov_Climb : MonoBehaviour
         if (Physics.Raycast(rayPlayerHead.origin, rayPlayerHead.direction, out ryhPlayerHeadHit, numMaxDistanceRay, layerMask))
         {
                 basicRigidBodyPush.canPush = true;
-                booWantClimb = playerInput.actions["Climb"].WasPressedThisFrame();
+                booWantClimb = playerInput.actions["Climb"].IsPressed();
                 Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * numMaxDistanceRay, Color.red);
                 if (booWantClimb && !booIsClimbing)
                 {
@@ -58,6 +62,20 @@ public class Mov_Climb : MonoBehaviour
         if (booIsClimbing == false)
         {
             StopCoroutine(ienClimbing);
+        }
+        if (Physics.Raycast(rayPlayerHead.origin, rayPlayerHead.direction, out RaycastHit ductoHit, numMaxDistanceRay, ducto))
+        {
+            if (playerInput.actions["Climb"].IsPressed())
+            {
+                Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * numMaxDistanceRay, Color.blue);
+                // Mover el personaje hacia el punto de entrada del ducto
+                
+                characterController.transform.DOMoveY(puntoDeEntrada.transform.position.y, 1.5f);
+                characterController.transform.DOScaleY(0.5f, duracionAnimacion);                
+                characterController.transform.DOMove(puntoDeEntrada.position, duracionAnimacion)
+                    .SetEase(Ease.InOutQuad); // Aplicar una curva de easing para suavizar la animación                
+            }
+            
         }
     }
     //CORUTINA PARA EL EVENTO DE ESCALAR
