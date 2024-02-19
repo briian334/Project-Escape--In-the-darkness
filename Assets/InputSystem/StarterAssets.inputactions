@@ -43,9 +43,9 @@
                 },
                 {
                     "name": "Crouch",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "69b7f298-d935-496c-a0d2-030432712633",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -55,6 +55,15 @@
                     "type": "Button",
                     "id": "4b1e6a6b-9b20-4913-bdc3-fe4b7b1e586e",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Push",
+                    "type": "PassThrough",
+                    "id": "3c9a0d09-9e62-4d3d-8c84-0c9489413ff7",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -262,7 +271,7 @@
                 {
                     "name": "",
                     "id": "eca0e27e-67d4-4536-92d4-4d92243b51e3",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
@@ -278,6 +287,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Climb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fcda37fe-4f08-4646-9c68-a2f98050beee",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Push",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

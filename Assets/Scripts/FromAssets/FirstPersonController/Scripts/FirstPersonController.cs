@@ -71,12 +71,13 @@ namespace StarterAssets
 		[SerializeField] private float _numGravityMultiply;
 		private float _numFallVelocity;
         public bool booIsPlayerCrouch = false;
-        public float crouchHeight = 1.0f;
-        public float crouchSpeed = 0.5f;
-        private float originalHeight;
-        private float rayDistance = 5.0f;
-        [SerializeField] LayerMask roof;
-        private float currentSpeed;
+        public float numCrouchHeight;
+        public float numCrouchSpeed;
+        private float _numOriginalHeight;
+        [SerializeField] private float _numRayDistance = 2f;
+        [SerializeField] LayerMask layRoof;
+        private float _numCurrentSpeed;
+		public Mov_ClimbBoxes Mov_ClimbBoxes;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -120,19 +121,21 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
-            originalHeight = _controller.height;
+            _numOriginalHeight = _controller.height;
+            numCrouchHeight = _numOriginalHeight / 2;
+			Mov_ClimbBoxes = GetComponentInChildren <Mov_ClimbBoxes>();
         }
 
 		private void Update()
 		{
+			numCrouchSpeed = MoveSpeed * 0.5f;
             // Si el jugador está agachado, establece la velocidad actual en crouchSpeed
-            if (booIsPlayerCrouch)
-            {
-                currentSpeed = crouchSpeed;
-            }
+            if (booIsPlayerCrouch)          
+                _numCurrentSpeed = numCrouchSpeed;            
             FnGravity();
-			GroundedCheck();                   
-            Move();
+			GroundedCheck();
+			if (!Mov_ClimbBoxes.booIsClimbing)
+				Move();
         }
 
 		private void LateUpdate()
@@ -147,7 +150,7 @@ namespace StarterAssets
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 		}
 
-		private void CameraRotation()
+		 private void CameraRotation()
 		{
 			// if there is an input
 			if (_input.look.sqrMagnitude >= _threshold)
@@ -178,7 +181,7 @@ namespace StarterAssets
             // if the player is crouching, reduce the target speed
             if (booIsPlayerCrouch)
             {
-                targetSpeed = currentSpeed;
+                targetSpeed = _numCurrentSpeed;
             }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
@@ -226,37 +229,36 @@ namespace StarterAssets
             booIsPlayerCrouch = _playerInput.actions["Crouch"].IsPressed();
             if (booIsPlayerCrouch)
             {
-                Crouch();
+                FnCrouch();
             }
             else
             {
-                if (Physics.Raycast(rayPlayerHead, rayDistance, roof))
+                if (Physics.Raycast(rayPlayerHead, _numRayDistance, layRoof))
                 {
-                    Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * rayDistance, Color.red);
-                    Debug.Log("ARRIBA HAY ALGO");
+                    Debug.DrawRay(rayPlayerHead.origin, rayPlayerHead.direction * _numRayDistance, Color.red);                    
                     booIsPlayerCrouch = true;
-                    Crouch();
+                    FnCrouch();
                 }
                 else
                 {
 					booIsPlayerCrouch = false;
-                    StandUp();
+                    FnStandUp();
                 }                
             }
 }
-        void Crouch()
+        void FnCrouch()
         {
-            float targetHeight = booIsPlayerCrouch ? crouchHeight : originalHeight;
+            float targetHeight = booIsPlayerCrouch ? numCrouchHeight : _numOriginalHeight;
             _controller.height = Mathf.Lerp(_controller.height, targetHeight, 5f * Time.deltaTime);
-            float scale = _controller.height / originalHeight;
+            float scale = _controller.height / _numOriginalHeight;
             transform.localScale = new Vector3(scale, scale, scale);
         }
 
-        void StandUp()
+        void FnStandUp()
         {
-            float targetHeight = booIsPlayerCrouch ? crouchHeight : originalHeight;
+            float targetHeight = booIsPlayerCrouch ? numCrouchHeight : _numOriginalHeight;
             _controller.height = Mathf.Lerp(_controller.height, targetHeight, 3.5f * Time.deltaTime);
-            float scale = _controller.height / originalHeight;
+            float scale = _controller.height / _numOriginalHeight;
             transform.localScale = new Vector3(scale, scale, scale);
         }
 
