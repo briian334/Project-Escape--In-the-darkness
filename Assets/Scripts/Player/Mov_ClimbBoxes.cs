@@ -36,7 +36,8 @@ public class Mov_ClimbBoxes : MonoBehaviour
         rayDetectHigh = new(transform.position, transform.forward);
         //SE CREA UNA CONDICION PARA SABER SI ES QUE EL RAYO COLISIONA CON UN OBJETO ESCALABLE (MEDIANTE LA CAPA)  
         if (Physics.Raycast(rayDetectHigh.origin, rayDetectHigh.direction, out RaycastHit ryhPointCollison, numMaxDistanceRay, layObjectUpper))
-        {
+        {            
+           
             //EN CASO DE SER CIERTA, SE COMPRUEBA SI EL JUGADOR PRESIONA LA TECLA ESPERADA PARA REALIZAR DICHA ACCION
             if (pyiPlayerInput.actions["Climb"].IsPressed() && booIsClimbing == false)
             {
