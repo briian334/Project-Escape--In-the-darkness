@@ -24,9 +24,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "8c4abdf8-4099-493a-aa1a-129acec7c3df",
+                    "name": "Interact",
+                    "type": "PassThrough",
+                    "id": "049f3fdb-a24d-4c95-8e25-88ecad766f17",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -43,16 +43,25 @@
                 },
                 {
                     "name": "Crouch",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "69b7f298-d935-496c-a0d2-030432712633",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Push",
+                    "type": "PassThrough",
+                    "id": "8ee23578-1948-4b6a-8491-9e786c09001d",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Climb",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "4b1e6a6b-9b20-4913-bdc3-fe4b7b1e586e",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -60,10 +69,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Push",
+                    "name": "Zoom",
                     "type": "PassThrough",
-                    "id": "3c9a0d09-9e62-4d3d-8c84-0c9489413ff7",
-                    "expectedControlType": "",
+                    "id": "56d65daa-b6be-42ac-a46d-89daa19b5ce7",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -204,28 +213,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1bd55a0b-761e-4ae4-89ae-8ec127e08a29",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9f973413-5e27-4239-acee-38c4a63feeba",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "dc65b89f-9bd3-43fb-92af-d0d87ba5faa4",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -292,12 +279,56 @@
                 },
                 {
                     "name": "",
-                    "id": "fcda37fe-4f08-4646-9c68-a2f98050beee",
+                    "id": "65b9370d-334d-4756-987d-1cf29f8bb844",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Push",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "81363401-46db-4c4d-a3a7-9bc5ac404864",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6aa7c380-e36d-4733-a5ac-083f8884c82d",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "408b4c31-ea5e-448a-9dca-1ccc6332830b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cd385b9-97d5-4b90-bae0-4bef8376fcff",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

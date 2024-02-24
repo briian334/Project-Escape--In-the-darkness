@@ -19,7 +19,7 @@ public class Mov_ClimbBoxes : MonoBehaviour
     [SerializeField] LayerMask layObjectUpper; //OBJETO DE TIPO "MASCARA" SE ENCARGA DE ESPECIFICAR QUE CAPA PODRA SER ESCALADA    
     [SerializeField] float numMaxDistanceRay = 1f; //DISTANCIA DEL RAYO QUE DETECTA OBJETOS ESCALABLES        
     [SerializeField] private float _numAnimationTime = 2f; //DURACION DE ANIMACION ESCALAR
-    [SerializeField] public float numFactorScale = 0.5f; //ESCALA DEL JUGADOR (TAMANO)
+    [SerializeField] float numFactorScale = 0.5f; //ESCALA DEL JUGADOR (TAMANO)
    
     #endregion
     private void Start()

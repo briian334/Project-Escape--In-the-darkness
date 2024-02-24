@@ -22,7 +22,7 @@ public class Mov_PlayerMov : MonoBehaviour
     private bool booIsPlayerRunning;    
     private float numPlayerCurrentSpeed;
     [SerializeField] float numPlayerSprintSpeed = 6f;
-    [SerializeField] float numPlayerGravity = 9.81f;
+//    [SerializeField] float numPlayerGravity = 9.81f;
     [SerializeField] float numPlayerNormSpeed = 4f;
     public float crouchHeight = 1.0f;
     public float crouchSpeed = 2f;
@@ -30,7 +30,7 @@ public class Mov_PlayerMov : MonoBehaviour
     Vector3 Offset;
     [SerializeField] LayerMask roof;
     float numCamRotationSpeed = 1f;
-    private float rayDistance = 1.0f;
+    //private float rayDistance = 1.0f;
 
     void Awake()
     {

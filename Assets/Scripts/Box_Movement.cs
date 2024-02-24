@@ -28,7 +28,7 @@ public class Box_Movement : MonoBehaviour
         //SE OBTIENE EL RIGIDBODY DE LA CAJA A EMPUJAR
         Rigidbody rgbObjectCollision = pcchObjectHit.collider.attachedRigidbody;
         //SE OBTIENE EL TAG DEL OBJETO COLISIONADO Y SE CREA UNA CONDICION
-        bool booIsaBox = pcchObjectHit.collider.CompareTag("Box");        
+        bool booIsaBox = pcchObjectHit.collider.CompareTag("Box");
         //SI EL RIGIDBODY ES NULO O KINEMATICO SE SALE DEL SCRIPT
         if (rgbObjectCollision == null || rgbObjectCollision.isKinematic)       
             return;
@@ -44,8 +44,7 @@ public class Box_Movement : MonoBehaviour
                 Debug.Log("Empujanding...");
                 //SE EJECUTA EL MOVIMIENTO A TRAVES DEL VECTOR DE POSICION PARA EMPUJAR LA CAJA
                 Vector3 ve3Direccion = new(pcchObjectHit.moveDirection.x, 0f, pcchObjectHit.moveDirection.z);
-                rgbObjectCollision.velocity = ve3Direccion * numPlayerStrength / rgbObjectCollision.mass;            
-               
+                rgbObjectCollision.velocity = ve3Direccion * numPlayerStrength / rgbObjectCollision.mass;               
             }           
         }
     }

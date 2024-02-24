@@ -67,7 +67,7 @@ namespace StarterAssets
 
 		//BRIAN PRUEBAS
 		[Header("BRIAN VARIABLES")]
-		private float _numGravity = -9.81f;
+	//private float _numGravity = -9.81f;
 		[SerializeField] private float _numGravityMultiply;
 		private float _numFallVelocity;
         public bool booIsPlayerCrouch = false;
@@ -78,6 +78,7 @@ namespace StarterAssets
         [SerializeField] LayerMask layRoof;
         private float _numCurrentSpeed;
 		public Mov_ClimbBoxes Mov_ClimbBoxes;
+        public Mov_HideLockers mov_HideLockers;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -123,7 +124,7 @@ namespace StarterAssets
 			_fallTimeoutDelta = FallTimeout;
             _numOriginalHeight = _controller.height;
             numCrouchHeight = _numOriginalHeight / 2;
-			Mov_ClimbBoxes = GetComponentInChildren <Mov_ClimbBoxes>();
+			Mov_ClimbBoxes = GetComponentInChildren <Mov_ClimbBoxes>();		
         }
 
 		private void Update()
@@ -134,13 +135,14 @@ namespace StarterAssets
                 _numCurrentSpeed = numCrouchSpeed;            
             FnGravity();
 			GroundedCheck();
-			if (!Mov_ClimbBoxes.booIsClimbing)
+			if (!Mov_ClimbBoxes.booIsClimbing && !mov_HideLockers.isHiding)
 				Move();
         }
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+            if (!Mov_ClimbBoxes.booIsClimbing && !mov_HideLockers.isHiding)
+                CameraRotation();
 		}
 
 		private void GroundedCheck()
