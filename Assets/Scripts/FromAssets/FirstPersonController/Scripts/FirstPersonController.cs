@@ -78,7 +78,7 @@ namespace StarterAssets
         [SerializeField] LayerMask layRoof;
         private float _numCurrentSpeed;
 		public Mov_ClimbBoxes Mov_ClimbBoxes;
-        public Mov_HideLockers mov_HideLockers;
+		public Int_ObjectSelected int_ObjectSelected;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -124,7 +124,8 @@ namespace StarterAssets
 			_fallTimeoutDelta = FallTimeout;
             _numOriginalHeight = _controller.height;
             numCrouchHeight = _numOriginalHeight / 2;
-			Mov_ClimbBoxes = GetComponentInChildren <Mov_ClimbBoxes>();		
+			Mov_ClimbBoxes = GetComponentInChildren <Mov_ClimbBoxes>();
+            int_ObjectSelected = GetComponent<Int_ObjectSelected>();
         }
 
 		private void Update()
@@ -135,13 +136,13 @@ namespace StarterAssets
                 _numCurrentSpeed = numCrouchSpeed;            
             FnGravity();
 			GroundedCheck();
-			if (!Mov_ClimbBoxes.booIsClimbing && !mov_HideLockers.isHiding)
+			if (!Mov_ClimbBoxes.booIsClimbing && !int_ObjectSelected.booIsHiding)
 				Move();
         }
 
 		private void LateUpdate()
 		{
-            if (!Mov_ClimbBoxes.booIsClimbing && !mov_HideLockers.isHiding)
+            if (!Mov_ClimbBoxes.booIsClimbing && !int_ObjectSelected.booIsHiding)
                 CameraRotation();
 		}
 
