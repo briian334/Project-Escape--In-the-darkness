@@ -5,45 +5,43 @@ using UnityEngine.InputSystem;
 
 public class Mov_HideLockers : MonoBehaviour
 {
-    public GameObject player;
-    private PlayerInput PlayerInput;
-    public GameObject hideSpot; // El punto de vista dentro del casillero
-    public bool isHiding = false;
-    public Ray rayDetectHigh; //RAYO QUE DETECTA OBJETOS ESCALABLES
-    public Camera camVirtualCamera;
-    // Distancia dentro de la cual el jugador puede esconderse
-    public LayerMask layInteractable;
-    [SerializeField] float numMaxDistanceRay = 0.5f;
-    private Quaternion originalRotation;
-    private Vector3 originalPosition;
-    public GameObject cameraFollowTarget; // El objeto que la cámara de Cinemachine está siguiendo
-    private CinemachineBasicMultiChannelPerlin virtualCameraNoise; // El componente de ruido de la cámara virtual
-    public CinemachineVirtualCamera virtualCamera; // La cámara virtual de Cinemachine
-    private Transform _gamPointRLocker;
-
+    #region Variables
+    private PlayerInput _pyiPlayerInput; //DEFINE LOS CONTROLES DEL JUGADOR
+    public GameObject gamHideSpot; //EL PUNTO DE VISTA DENTRO DEL CASILLERO (ASIGNAR EN INSPECTOR)
+    public bool booIsHiding = false; //ESTADO ESCONDIDO
+    public Ray rayDetectInteractable; //RAYO QUE DETECTA OBJETOS INTERACTUABLES   
+    public LayerMask layLayerInteractable; //CAPA INTERACTUABLE DEL OBJETO (ASIGNAR EN INSPECTOR)
+    [SerializeField] float numMaxDistanceRay = 0.5f; //DISTANCIA DEL RAYO PARA SELECCIONAR OBJETOS
+    private Quaternion _quaOriginalRotation; //ROTACION ORIGINAL DE LA CAMARA ANTES DE ESCONDERSE
+    private Vector3 _ve3OriginalPosition; //POSICION ORIGINAL DEL JUGADOR ANTES DE ESCONDERSE
+    public GameObject gamCameraFollowTarget; //OBJETO QUE SIGUE LA VIRTUAL CAMERA DEL JUGADOR
+    private CinemachineBasicMultiChannelPerlin _cbmVirtualCameraNoise; //PROPIEDAD QUE HACE FLOTAR LA CAMARA SIMULANDO RESPIRACION
+    public CinemachineVirtualCamera cvcVirtualCamera; //CAMARA VIRTUAL DEL JUGADOR
+    public Camera camMainCamera; //CAMARA PRINCIPAL PARA EMITIR EL RAYO DESDE ESA POSICION
+    private Transform _TraPointRLocker; //POSICION DEL OBJETO "INSIDE" DEL CASILLERO
+    #endregion
     private void Start()
     {
-        PlayerInput = player.GetComponent<PlayerInput>();
-        virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        //SE INICIALIZAN LAS VARIABLES
+        _pyiPlayerInput = GetComponent<PlayerInput>();
+        _cbmVirtualCameraNoise = cvcVirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
     void Update()
     {
-        //SE DA REFERENCIA DE POSICION AL RAYO (EL ORIGEN SALE DESDE EL GAMEOBJECT VACIO)
-        rayDetectHigh = new(camVirtualCamera.transform.position, camVirtualCamera.transform.forward);
-        Debug.DrawRay(rayDetectHigh.origin, rayDetectHigh.direction * numMaxDistanceRay, Color.white);
+        rayDetectInteractable = new(camMainCamera.transform.position, camMainCamera.transform.forward);
+        Debug.DrawRay(rayDetectInteractable.origin, rayDetectInteractable.direction * numMaxDistanceRay, Color.white);
 
         // Si el jugador está lo suficientemente cerca y presiona la tecla de escondite
-        if (Physics.Raycast(rayDetectHigh.origin, rayDetectHigh.direction, out RaycastHit ryhPointCollison, numMaxDistanceRay, layInteractable))
+        if (Physics.Raycast(rayDetectInteractable.origin, rayDetectInteractable.direction, out RaycastHit ryhPointCollison, numMaxDistanceRay, layLayerInteractable))
         {
-            if (PlayerInput.actions["Interact"].WasPressedThisFrame())
+            if (_pyiPlayerInput.actions["Interact"].WasPressedThisFrame())
             {
                 string strNameTag = ryhPointCollison.collider.tag;
                 switch (strNameTag)
                 {
                     case "Locker":
-                        _gamPointRLocker = ryhPointCollison.transform.Find("Inside");
-                        Debug.DrawRay(rayDetectHigh.origin, rayDetectHigh.direction * numMaxDistanceRay, Color.red);
-                        FnHiding(_gamPointRLocker);
+                        _TraPointRLocker = ryhPointCollison.transform.Find("Inside");
+                        FnHiding(_TraPointRLocker);
                         break;
                     default: return;
                 }
@@ -51,29 +49,29 @@ public class Mov_HideLockers : MonoBehaviour
             return;
         }
     }
-    public void FnHiding(Transform hideSpot)
+    public void FnHiding(Transform ptraHideSpot)
     {
         // Alternar entre esconderse y no esconderse
-        isHiding = !isHiding;
+        booIsHiding = !booIsHiding;
 
         // Si el jugador se está escondiendo, le dice al jugador que se esconda y le da la ubicación del punto de vista dentro de este casillero
-        if (isHiding)
+        if (booIsHiding)
         {
             // Guarda la posición y rotación originales del objeto que la cámara está siguiendo
-            originalPosition = cameraFollowTarget.transform.position;
-            originalRotation = cameraFollowTarget.transform.rotation;
+            _ve3OriginalPosition = gamCameraFollowTarget.transform.position;
+            _quaOriginalRotation = gamCameraFollowTarget.transform.rotation;
             // Desactiva el ruido de la cámara virtual
-            virtualCameraNoise.m_AmplitudeGain = 0.05f;
+            _cbmVirtualCameraNoise.m_AmplitudeGain = 0.05f;
             // Mueve y rota el objeto que la cámara de Cinemachine está siguiendo al punto de vista dentro del casillero
-            cameraFollowTarget.transform.SetPositionAndRotation(hideSpot.transform.position, hideSpot.transform.rotation);
+            gamCameraFollowTarget.transform.SetPositionAndRotation(ptraHideSpot.transform.position, ptraHideSpot.transform.rotation);
         }
         // De lo contrario, le dice al jugador que deje de esconderse
         else
         {
             // Mueve y rota el objeto que la cámara de Cinemachine está siguiendo de vuelta a su posición y rotación original
-            cameraFollowTarget.transform.SetPositionAndRotation(originalPosition, originalRotation);
+            gamCameraFollowTarget.transform.SetPositionAndRotation(_ve3OriginalPosition, _quaOriginalRotation);
             // Desactiva el ruido de la cámara virtual
-            virtualCameraNoise.m_AmplitudeGain = 0.5f;
+            _cbmVirtualCameraNoise.m_AmplitudeGain = 0.5f;
         }
     }
 }
