@@ -35,11 +35,13 @@ public class Mov_HideLockers : MonoBehaviour
         // Si el jugador está lo suficientemente cerca y presiona la tecla de escondite
         if (Physics.Raycast(rayDetectHigh.origin, rayDetectHigh.direction, out RaycastHit ryhPointCollison, numMaxDistanceRay, layInteractable))
         {
+            //Layer Interact
             if (PlayerInput.actions["Interact"].WasPressedThisFrame())
             {
                 string strNameTag = ryhPointCollison.collider.tag;
                 switch (strNameTag)
                 {
+                    //Tags
                     case "Locker":
                         _gamPointRLocker = ryhPointCollison.transform.Find("Inside");
                         Debug.DrawRay(rayDetectHigh.origin, rayDetectHigh.direction * numMaxDistanceRay, Color.red);
