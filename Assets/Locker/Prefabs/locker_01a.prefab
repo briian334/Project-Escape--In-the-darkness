@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 2300000}
   - component: {fileID: 3499833623999667754}
   - component: {fileID: 8743912839494700095}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: locker_01a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: f8a4903bf11aefb4f8358b11034c57cc, type: 3}
 --- !u!1 &6337757847091325523

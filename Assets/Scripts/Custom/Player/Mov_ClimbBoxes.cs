@@ -54,6 +54,7 @@ public class Mov_ClimbBoxes : MonoBehaviour
                         Rigidbody rgbBox = ryhPointCollison.transform.GetComponent<Rigidbody>();
                         if (rgbBox != null)
                         {
+                            booIsClimbing = true;
                             //SE REALIZA LA INTERPOLACION ENTRE EL JUGADOR Y EL OBJETO ESCALABLE
                             ienClimbBoxes = CrtClimbBoxes(rgbBox, _traReferencePoint);
                             //SE EJECUTA LA CORRUTINA
@@ -61,8 +62,9 @@ public class Mov_ClimbBoxes : MonoBehaviour
                             //SE PINTA EL RAYO EN DESARROLLO (PARA PRUEBAS, DESPUES ELIMINAR)
                             Debug.DrawRay(rayDetectHigh.origin, rayDetectHigh.direction * numMaxDistanceRay, Color.blue);
                         }
-                        return;                  
+                        return;
                     case "Conduct":
+                        booIsClimbing = true;
                         //SE OBTIENE EL OBJETO REFERENCIA
                         _traReferencePoint = ryhPointCollison.transform.Find("PointReference");
                         //SE REALIZA LA INTERPOLACION ENTRE EL JUGADOR Y EL OBJETO ESCALABLE
@@ -76,7 +78,7 @@ public class Mov_ClimbBoxes : MonoBehaviour
                         Debug.Log("Tag no existente.");
                         return;
                 }
-                booIsClimbing = true;
+                
             }
         }
         //SI EL ESTADO "ESCALANDO" ESTA INACTIVO, Y LA CORRUTINA NO ES NULA, PARAMOS CORRUTINAS ACTIVAS
