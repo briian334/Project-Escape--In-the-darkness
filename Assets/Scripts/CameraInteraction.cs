@@ -47,6 +47,18 @@ public class CameraInteraction : MonoBehaviour
                 TextDetectDoor.SetActive(false); // Asegúrate de desactivar el canvas de puertas
             }
 
+            if (hit.collider.tag == "Box")
+            {
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.transform.GetComponent<ObjetoInteractivo>().ActivarObjeto();
+
+                }
+                TextDetect.SetActive(true); // Activa el canvas genérico
+                TextDetectDoor.SetActive(false); // Asegúrate de desactivar el canvas de puertas
+            }
+
 
             if (hit.collider.tag == "Locker")
             {
