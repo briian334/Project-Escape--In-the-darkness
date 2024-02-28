@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2300000}
   - component: {fileID: 6500000}
   - component: {fileID: 8079216215837084895}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: door
   m_TagString: Locker
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 2300002}
   - component: {fileID: 6400000}
   - component: {fileID: 8970162987468272312}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: locker_01b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ Transform:
   m_GameObject: {fileID: 100002}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.209, y: -0.504, z: -3.704}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
