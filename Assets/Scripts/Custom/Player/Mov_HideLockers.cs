@@ -19,6 +19,7 @@ public class Mov_HideLockers : MonoBehaviour
     public CinemachineVirtualCamera cvcVirtualCamera; //CAMARA VIRTUAL DEL JUGADOR
     public Camera camMainCamera; //CAMARA PRINCIPAL PARA EMITIR EL RAYO DESDE ESA POSICION
     private Transform _TraPointRLocker; //POSICION DEL OBJETO "INSIDE" DEL CASILLERO
+    [SerializeField] private ControladorJuego controladorJuego;//CONEXIÓN CON CONTADOR
     #endregion
     private void Start()
     {
@@ -66,6 +67,8 @@ public class Mov_HideLockers : MonoBehaviour
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.05f;
             // Mueve y rota el objeto que la cámara de Cinemachine está siguiendo al punto de vista dentro del casillero
             gamCameraFollowTarget.transform.SetPositionAndRotation(ptraHideSpot.transform.position, ptraHideSpot.transform.rotation);
+            controladorJuego.ActivarTemporizador();
+            Debug.Log("If");
         }
         // De lo contrario, le dice al jugador que deje de esconderse
         else
@@ -74,6 +77,8 @@ public class Mov_HideLockers : MonoBehaviour
             gamCameraFollowTarget.transform.SetPositionAndRotation(_ve3OriginalPosition, _quaOriginalRotation);
             // Desactiva el ruido de la cámara virtual
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.5f;
+            controladorJuego.DesactivarTemporizador();
+            Debug.Log("Else");
         }
     }
 }

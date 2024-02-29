@@ -10,11 +10,7 @@ public class ControladorJuego : MonoBehaviour
     private float tiempoActual;
     private bool tiempoActivado = false;
 
-    // Start is called before the first frame update
-    //private void Start()
-    //{
-    //    ActivarTemporizador();
-    //}
+   
 
     // Update is called once per frame
     private void Update()

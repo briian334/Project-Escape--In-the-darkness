@@ -23,6 +23,7 @@ public class Int_ObjectSelected : MonoBehaviour
     public bool booIsHiding = false; //ESTADO ESCONDIDO
     private Quaternion _quaOriginalRotation; //ROTACION ORIGINAL DE LA CAMARA ANTES DE ESCONDERSE
     private Vector3 _ve3OriginalPosition; //POSICION ORIGINAL DEL JUGADOR ANTES DE ESCONDERSE
+    [SerializeField] private ControladorJuego controladorJuego;
     #endregion
     private void Start()
     {
@@ -110,6 +111,7 @@ public class Int_ObjectSelected : MonoBehaviour
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.05f;
             //MUEVE Y ROTA EL OBJETO QUE LA CÁMARA DE CINEMACHINE ESTÁ SIGUIENDO AL PUNTO DE VISTA DENTRO DEL CASILLERO
             gamCameraFollowTarget.transform.SetPositionAndRotation(ptraHideSpot.transform.position, ptraHideSpot.transform.rotation);
+            controladorJuego.ActivarTemporizador();
         }
         //DE LO CONTRARIO, LE DICE AL JUGADOR QUE DEJE DE ESCONDERSE
         else
@@ -118,6 +120,7 @@ public class Int_ObjectSelected : MonoBehaviour
             gamCameraFollowTarget.transform.SetPositionAndRotation(_ve3OriginalPosition, _quaOriginalRotation);
             //DESACTIVA EL RUIDO DE LA CÁMARA VIRTUAL
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.5f;
+            controladorJuego.DesactivarTemporizador();
         }
     }
 }
