@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6269272505558779233}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: boxPrefab
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5699463674248041626}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: PointReference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7852723853959904438}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: PointReference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8620891033309360045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       propertyPath: m_TagString
@@ -221,6 +221,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2090324768096037639}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 295706170705127866}
   m_SourcePrefab: {fileID: 100100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
 --- !u!1 &2747510815826910927 stripped
 GameObject:
@@ -275,6 +278,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &295706170705127866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747510815826910927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63119794c3128e4da543754750cb757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &2747510815827395311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
@@ -294,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       propertyPath: m_TagString
@@ -446,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fbac7f5a73188a44d9d1f47f4838b893, type: 3}
       propertyPath: m_TagString

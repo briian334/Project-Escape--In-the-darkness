@@ -52,7 +52,7 @@ public class CameraInteraction : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    hit.collider.transform.GetComponent<ObjetoInteractivo>().ActivarObjeto();
+                    hit.collider.transform.GetComponent<Box_Movement>();
 
                 }
                 TextDetect.SetActive(true); // Activa el canvas genérico
