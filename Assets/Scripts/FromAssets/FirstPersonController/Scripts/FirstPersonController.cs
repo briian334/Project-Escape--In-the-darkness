@@ -55,8 +55,12 @@ namespace StarterAssets
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
-		// player
-		private float _speed;
+        public Light flashlight;
+
+        //public Transform hand;
+
+        // player
+        private float _speed;
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
@@ -112,6 +116,11 @@ namespace StarterAssets
 
 		private void Start()
 		{
+
+            flashlight.enabled = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -138,6 +147,11 @@ namespace StarterAssets
 			GroundedCheck();
 			if (!Mov_ClimbBoxes.booIsClimbing && !int_ObjectSelected.booIsHiding)
 				Move();
+
+            if (Input.GetButtonDown("ToggleFlashlight"))
+            {
+                flashlight.enabled = !flashlight.enabled;
+            }
         }
 
 		private void LateUpdate()
@@ -172,6 +186,9 @@ namespace StarterAssets
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
+
+				//Movimiento de cámara a la par de la mano
+				//hand.localRotation = Quaternion.Euler(_input.look.x, _input.look.y, 0f);
 			}
 		}
 
