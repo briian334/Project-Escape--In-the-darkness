@@ -268,6 +268,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1922765185003196529, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.99055463
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922765185003196529, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.12981802
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922765185003196529, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.043771036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922765185003196529, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.005736311
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922765185003196534, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: field of view
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922765185003196534, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 3034362848421746404, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -275,6 +299,22 @@ PrefabInstance:
     - target: {fileID: 3034362848421746404, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034512914339968829, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_Intensity
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034512914339968829, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_SpotAngle
+      value: 157.01749
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034512914339968829, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 102.761086
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463518987772046291, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.69
       objectReference: {fileID: 0}
     - target: {fileID: 7799420946240296467, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
       propertyPath: m_Name
