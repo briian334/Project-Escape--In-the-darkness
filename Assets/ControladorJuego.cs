@@ -9,15 +9,28 @@ public class ControladorJuego : MonoBehaviour
     [SerializeField] private Slider slider;
     private float tiempoActual;
     private bool tiempoActivado = false;
+    [SerializeField] private GameObject Tiempo;
 
-   
 
     // Update is called once per frame
+    private void Start()
+    {
+        
+            CambiarContador();
+            Tiempo.SetActive(false);
+        
+    }
+
     private void Update()
     {
         if (tiempoActivado)
         {
             CambiarContador();
+            Tiempo.SetActive(true);
+        }
+        else
+        {
+            Tiempo.SetActive(false);
         }
     }
 

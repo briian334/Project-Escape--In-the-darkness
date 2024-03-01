@@ -334,17 +334,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &433303664 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2773912533756371168, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
-  m_PrefabInstance: {fileID: 1913397404}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8bda4e2f3c5ec94c95afd331215965d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &876368804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -820,14 +809,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1221885048693873637, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
-      propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2773912533756371168, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
-      propertyPath: tiempoMaximo
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3034362848421746404, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -836,10 +817,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4477874220974429054, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
-      propertyPath: controladorJuego
-      value: 
-      objectReference: {fileID: 433303664}
     - target: {fileID: 7799420946240296467, guid: 96d02fb722ef00c438877e5a52dad652, type: 3}
       propertyPath: m_Name
       value: Playerv1

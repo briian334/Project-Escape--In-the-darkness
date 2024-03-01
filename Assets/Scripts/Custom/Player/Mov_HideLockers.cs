@@ -20,6 +20,7 @@ public class Mov_HideLockers : MonoBehaviour
     public Camera camMainCamera; //CAMARA PRINCIPAL PARA EMITIR EL RAYO DESDE ESA POSICION
     private Transform _TraPointRLocker; //POSICION DEL OBJETO "INSIDE" DEL CASILLERO
     [SerializeField] private ControladorJuego controladorJuego;//CONEXIÓN CON CONTADOR
+    
     #endregion
     private void Start()
     {
@@ -78,6 +79,7 @@ public class Mov_HideLockers : MonoBehaviour
             // Desactiva el ruido de la cámara virtual
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.5f;
             controladorJuego.DesactivarTemporizador();
+            
             Debug.Log("Else");
         }
     }

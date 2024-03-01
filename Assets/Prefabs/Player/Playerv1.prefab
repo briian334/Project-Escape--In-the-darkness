@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.474
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -569,6 +569,7 @@ MonoBehaviour:
   cvcVirtualCamera: {fileID: 6068219322762372888}
   gamHideSpot: {fileID: 0}
   booIsHiding: 0
+  controladorJuego: {fileID: 2773912533756371168}
 --- !u!1 &3399432700481714943
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +935,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.474
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1459,8 +1460,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bda4e2f3c5ec94c95afd331215965d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoMaximo: 0
+  tiempoMaximo: 10
   slider: {fileID: 1221885048693873637}
+  Tiempo: {fileID: 6969505345909361701}
 --- !u!1001 &3291922300448191075
 PrefabInstance:
   m_ObjectHideFlags: 0
