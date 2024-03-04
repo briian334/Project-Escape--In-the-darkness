@@ -14,6 +14,9 @@ public class CameraInteraction : MonoBehaviour
     public Texture2D puntero;
     public GameObject TextDetect;
     public GameObject TextDetectDoor; // Canvas para puertas
+    public GameObject TextDetectLight; // Canvas para linterna
+
+
 
 
     // Start is called before the first frame update
@@ -22,6 +25,7 @@ public class CameraInteraction : MonoBehaviour
         //camera = transform.Find("Camera");
         TextDetect.SetActive(false);
         TextDetectDoor.SetActive(false);
+        TextDetectLight.SetActive(false);
         mask = LayerMask.GetMask("Interactable");
     }
 
@@ -35,7 +39,7 @@ public class CameraInteraction : MonoBehaviour
         {
             Deselect();
             SelectedObject(hit.transform);
-            if (hit.collider.tag == "ObjetoInteractivo")
+            if (hit.collider.tag == "ObjetoInteractuable")
             {
 
                 if (Input.GetKeyDown(KeyCode.E))
@@ -57,11 +61,13 @@ public class CameraInteraction : MonoBehaviour
                 }
                 TextDetect.SetActive(true); // Activa el canvas genérico
                 TextDetectDoor.SetActive(false); // Asegúrate de desactivar el canvas de puertas
+                TextDetectLight.SetActive(false);
             }
 
 
             if (hit.collider.tag == "Locker")
             {
+                
 
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -71,8 +77,23 @@ public class CameraInteraction : MonoBehaviour
 
                 TextDetect.SetActive(false); // Desactiva el canvas genérico
                 TextDetectDoor.SetActive(true); // Activa el canvas específico para puertas
+                TextDetectLight.SetActive(false);
             }
 
+            if (hit.collider.tag == "Linterna")
+            {
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.transform.GetComponent<Spotlight>().ActivarObjeto();
+
+                }
+
+
+                TextDetect.SetActive(false); // Activa el canvas genérico
+                TextDetectLight.SetActive(true);
+                TextDetectDoor.SetActive(false); // Asegúrate de desactivar el canvas de puertas
+            }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * distancia, Color.red);
         }
@@ -104,6 +125,7 @@ public class CameraInteraction : MonoBehaviour
             ultimoReconocido = null;
             TextDetect.SetActive(false); // Desactiva el canvas genérico
             TextDetectDoor.SetActive(false); // Desactiva el canvas de puertas
+            TextDetectLight.SetActive(false);
         }
     }
 
@@ -133,6 +155,7 @@ public class CameraInteraction : MonoBehaviour
         {
             TextDetect.SetActive(false);
             TextDetectDoor.SetActive(false);
+            TextDetectLight.SetActive(false);
         }
     }
 }

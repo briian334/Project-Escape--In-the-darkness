@@ -148,11 +148,11 @@ namespace StarterAssets
 			if (!Mov_ClimbBoxes.booIsClimbing && !int_ObjectSelected.booIsHiding)
 				Move();
 
-            if (Input.GetButtonDown("ToggleFlashlight"))
-            {
-                flashlight.enabled = !flashlight.enabled;
-            }
-        }
+			if (Input.GetButtonDown("ToggleFlashlight"))
+			{
+				flashlight.enabled = !flashlight.enabled;
+			}
+		}
 
 		private void LateUpdate()
 		{

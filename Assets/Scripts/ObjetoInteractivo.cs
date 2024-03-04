@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ObjetoInteractivo : MonoBehaviour
 {
@@ -18,3 +19,4 @@ public class ObjetoInteractivo : MonoBehaviour
 
     }
 }
+
