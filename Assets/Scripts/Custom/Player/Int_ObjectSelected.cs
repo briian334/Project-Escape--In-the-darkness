@@ -1,6 +1,7 @@
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Int_ObjectSelected : MonoBehaviour
@@ -35,9 +36,9 @@ public class Int_ObjectSelected : MonoBehaviour
     {
         //CREA UN RAYO PARA DETECTAR OBJETOS INTERACTUABLES
         rayDetectInteractable = new(camMainCamera.transform.position, camMainCamera.transform.forward);
-        //VISUALIZA EL RAYO EN EL EDITOR PARA DEPURACIÓN (NO VISIBLE EN EL JUEGO)
+        //VISUALIZA EL RAYO EN EL EDITOR PARA DEPURACIï¿½N (NO VISIBLE EN EL JUEGO)
         Debug.DrawRay(rayDetectInteractable.origin, rayDetectInteractable.direction * numMaxDistanceRay, Color.white);
-        //COMPRUEBA SI EL RAYO COLISIONA CON UN OBJETO INTERACTUABLE Y SI EL JUGADOR PRECIONA LA TECLA DE INTERACCIÓN
+        //COMPRUEBA SI EL RAYO COLISIONA CON UN OBJETO INTERACTUABLE Y SI EL JUGADOR PRECIONA LA TECLA DE INTERACCIï¿½N
         if (Physics.Raycast(rayDetectInteractable.origin, rayDetectInteractable.direction, out _ryhPointCollison, numMaxDistanceRay, layLayerInteractable))
         {
             if (_ryhPointCollison.collider.gameObject.layer != LayerMask.NameToLayer("Interactable"))
@@ -46,6 +47,15 @@ public class Int_ObjectSelected : MonoBehaviour
             }
             //OBTIENE EL OBJETO GOLPEADO POR EL RAYO
             Transform traHitObject = _ryhPointCollison.collider.transform;
+            if (traHitObject.TryGetComponent<Outline>(out Outline o))
+            {
+
+            }
+            else
+            {
+                Debug.Log("No tiene script outline...");
+                return;
+            }
             //SI NO ESTA ESCONDIDO SE ACTIVA EL DELINEADO
             if (!booIsHiding)
             {
@@ -65,20 +75,27 @@ public class Int_ObjectSelected : MonoBehaviour
                 _ryhPointCollison.collider.transform.GetComponentInParent<Outline>().enabled = false;
                 //OBTIENE EL NOMBRE DE LA ETIQUETA DEL OBJETO COLISIONADO
                 string strNameTag = _ryhPointCollison.collider.tag;
-                //DETERMINA LA ACCIÓN A REALIZAR SEGÚN LA ETIQUETA DEL OBJETO
+                //DETERMINA LA ACCIï¿½N A REALIZAR SEGï¿½N LA ETIQUETA DEL OBJETO
                 switch (strNameTag)
                 {
                     case "Locker":
                         try
                         {
-                            //INTENTA ENCONTRAR UN OBJETO HIJO LLAMADO "INSIDE" DENTRO DEL CASILLERO PARA POSICIONAR LA CÁMARA
+                            //INTENTA ENCONTRAR UN OBJETO HIJO LLAMADO "INSIDE" DENTRO DEL CASILLERO PARA POSICIONAR LA Cï¿½MARA
                             _traTransformCollision = _ryhPointCollison.transform.Find("Inside");
-                            FnHiding(_traTransformCollision); //LLAMA A LA FUNCIÓN PARA ESCONDERSE EN EL CASILLERO
+                            FnHiding(_traTransformCollision); //LLAMA A LA FUNCIï¿½N PARA ESCONDERSE EN EL CASILLERO
                         }
                         catch (System.Exception)
                         {
-                            //MANEJA CUALQUIER EXCEPCIÓN QUE OCURRA AL BUSCAR EL OBJETO "INSIDE"
+                            //MANEJA CUALQUIER EXCEPCIï¿½N QUE OCURRA AL BUSCAR EL OBJETO "INSIDE"
                             return;
+                        }
+                        break;
+                    case "Puzzle":
+                        if (!EventSystem.current.IsPointerOverGameObject())
+                        {
+                            // Send a function to the object we are aiming at
+                            _ryhPointCollison.transform.gameObject.SendMessage("ActivateObject", 0, SendMessageOptions.DontRequireReceiver);
                         }
                         break;
                     default:
@@ -101,24 +118,24 @@ public class Int_ObjectSelected : MonoBehaviour
     {
         //ALTERNAR ENTRE ESCONDERSE Y NO ESCONDERSE
         booIsHiding = !booIsHiding;
-        //SI EL JUGADOR SE ESTÁ ESCONDIENDO, LE DICE AL JUGADOR QUE SE ESCONDA Y LE DA LA UBICACIÓN DEL PUNTO DE VISTA DENTRO DE ESTE CASILLERO
+        //SI EL JUGADOR SE ESTï¿½ ESCONDIENDO, LE DICE AL JUGADOR QUE SE ESCONDA Y LE DA LA UBICACIï¿½N DEL PUNTO DE VISTA DENTRO DE ESTE CASILLERO
         if (booIsHiding)
         {
-            //GUARDA LA POSICIÓN Y ROTACIÓN ORIGINALES DEL OBJETO QUE LA CÁMARA ESTÁ SIGUIENDO
+            //GUARDA LA POSICIï¿½N Y ROTACIï¿½N ORIGINALES DEL OBJETO QUE LA Cï¿½MARA ESTï¿½ SIGUIENDO
             _ve3OriginalPosition = gamCameraFollowTarget.transform.position;
             _quaOriginalRotation = gamCameraFollowTarget.transform.rotation;
-            //DESACTIVA EL RUIDO DE LA CÁMARA VIRTUAL
+            //DESACTIVA EL RUIDO DE LA Cï¿½MARA VIRTUAL
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.05f;
-            //MUEVE Y ROTA EL OBJETO QUE LA CÁMARA DE CINEMACHINE ESTÁ SIGUIENDO AL PUNTO DE VISTA DENTRO DEL CASILLERO
+            //MUEVE Y ROTA EL OBJETO QUE LA Cï¿½MARA DE CINEMACHINE ESTï¿½ SIGUIENDO AL PUNTO DE VISTA DENTRO DEL CASILLERO
             gamCameraFollowTarget.transform.SetPositionAndRotation(ptraHideSpot.transform.position, ptraHideSpot.transform.rotation);
             controladorJuego.ActivarTemporizador();
         }
         //DE LO CONTRARIO, LE DICE AL JUGADOR QUE DEJE DE ESCONDERSE
         else
         {
-            //MUEVE Y ROTA EL OBJETO QUE LA CÁMARA DE CINEMACHINE ESTÁ SIGUIENDO DE VUELTA A SU POSICIÓN Y ROTACIÓN ORIGINAL
+            //MUEVE Y ROTA EL OBJETO QUE LA Cï¿½MARA DE CINEMACHINE ESTï¿½ SIGUIENDO DE VUELTA A SU POSICIï¿½N Y ROTACIï¿½N ORIGINAL
             gamCameraFollowTarget.transform.SetPositionAndRotation(_ve3OriginalPosition, _quaOriginalRotation);
-            //DESACTIVA EL RUIDO DE LA CÁMARA VIRTUAL
+            //DESACTIVA EL RUIDO DE LA Cï¿½MARA VIRTUAL
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.5f;
             controladorJuego.DesactivarTemporizador();
         }

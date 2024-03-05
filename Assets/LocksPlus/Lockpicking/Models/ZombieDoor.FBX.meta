@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: 5a5c8f38e94a3aa44b2799f0325156b9
+timeCreated: 1524077838
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: DoorFrame
+    100002: DoorLeft
+    100004: DoorRight
+    100006: Plank
+    100008: //RootNode
+    100010: Black
+    100012: ChainLink
+    100014: ChainLink001
+    100016: ChainLink002
+    100018: ChainLink003
+    100020: ChainLink004
+    100022: ChainLink005
+    100024: ChainLink006
+    100026: ChainLink007
+    100028: ChainLink008
+    100030: ChainLink009
+    100032: ChainLink010
+    100034: ChainLink011
+    100036: ChainLink012
+    100038: Padlock
+    100040: screwdriver
+    100042: Shackle
+    100044: TopoSurface001
+    400000: DoorFrame
+    400002: DoorLeft
+    400004: DoorRight
+    400006: Plank
+    400008: //RootNode
+    400010: Black
+    400012: ChainLink
+    400014: ChainLink001
+    400016: ChainLink002
+    400018: ChainLink003
+    400020: ChainLink004
+    400022: ChainLink005
+    400024: ChainLink006
+    400026: ChainLink007
+    400028: ChainLink008
+    400030: ChainLink009
+    400032: ChainLink010
+    400034: ChainLink011
+    400036: ChainLink012
+    400038: Padlock
+    400040: screwdriver
+    400042: Shackle
+    400044: TopoSurface001
+    2300000: DoorFrame
+    2300002: DoorLeft
+    2300004: DoorRight
+    2300006: Plank
+    2300008: Black
+    2300010: ChainLink
+    2300012: ChainLink001
+    2300014: ChainLink002
+    2300016: ChainLink003
+    2300018: ChainLink004
+    2300020: ChainLink005
+    2300022: ChainLink006
+    2300024: ChainLink007
+    2300026: ChainLink008
+    2300028: ChainLink009
+    2300030: ChainLink010
+    2300032: ChainLink011
+    2300034: ChainLink012
+    2300036: Padlock
+    2300038: Shackle
+    3300000: DoorFrame
+    3300002: DoorLeft
+    3300004: DoorRight
+    3300006: Plank
+    3300008: Black
+    3300010: ChainLink
+    3300012: ChainLink001
+    3300014: ChainLink002
+    3300016: ChainLink003
+    3300018: ChainLink004
+    3300020: ChainLink005
+    3300022: ChainLink006
+    3300024: ChainLink007
+    3300026: ChainLink008
+    3300028: ChainLink009
+    3300030: ChainLink010
+    3300032: ChainLink011
+    3300034: ChainLink012
+    3300036: Padlock
+    3300038: Shackle
+    4300000: DoorFrame
+    4300002: DoorRight
+    4300004: Plank
+    4300006: DoorLeft
+    4300008: Black
+    4300010: Padlock
+    4300012: Shackle
+    4300014: ChainLink
+    4300016: ChainLink001
+    4300018: ChainLink003
+    4300020: ChainLink002
+    4300022: ChainLink004
+    4300024: ChainLink005
+    4300026: ChainLink006
+    4300028: ChainLink007
+    4300030: ChainLink008
+    4300032: ChainLink009
+    4300034: ChainLink010
+    4300036: ChainLink011
+    4300038: ChainLink012
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

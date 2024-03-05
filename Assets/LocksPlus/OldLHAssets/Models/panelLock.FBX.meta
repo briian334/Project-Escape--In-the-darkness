@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: 3965be0048473cd4d99b199bdca9d129
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Cover
+    100002: PanelLock
+    100004: //RootNode
+    100006: Pin
+    100008: PinSlot
+    100010: PinSlot01
+    100012: PinSlot02
+    100014: PinSlot03
+    100016: PinSlot04
+    100018: PinSlot05
+    100020: PinSlot06
+    100022: PinSlot07
+    100024: PinSlot08
+    100026: PinSlot09
+    100028: panelFrame
+    400000: Cover
+    400002: PanelLock
+    400004: //RootNode
+    400006: Pin
+    400008: PinSlot
+    400010: PinSlot01
+    400012: PinSlot02
+    400014: PinSlot03
+    400016: PinSlot04
+    400018: PinSlot05
+    400020: PinSlot06
+    400022: PinSlot07
+    400024: PinSlot08
+    400026: PinSlot09
+    400028: panelFrame
+    2300000: Cover
+    2300002: PanelLock
+    2300004: //RootNode
+    2300006: Pin
+    2300008: PinSlot
+    2300010: PinSlot01
+    2300012: PinSlot02
+    2300014: PinSlot03
+    2300016: PinSlot04
+    2300018: PinSlot05
+    2300020: PinSlot06
+    2300022: PinSlot07
+    2300024: PinSlot08
+    2300026: PinSlot09
+    2300028: panelFrame
+    3300000: Cover
+    3300002: PanelLock
+    3300004: //RootNode
+    3300006: Pin
+    3300008: PinSlot
+    3300010: PinSlot01
+    3300012: PinSlot02
+    3300014: PinSlot03
+    3300016: PinSlot04
+    3300018: PinSlot05
+    3300020: PinSlot06
+    3300022: PinSlot07
+    3300024: PinSlot08
+    3300026: PinSlot09
+    3300028: panelFrame
+    4300000: PanelLock
+    4300002: Cover
+    4300004: PinSlot
+    4300006: Pin
+    4300008: PinSlot01
+    4300010: PinSlot02
+    4300012: PinSlot03
+    4300014: PinSlot06
+    4300016: PinSlot05
+    4300018: PinSlot04
+    4300020: PinSlot07
+    4300022: PinSlot08
+    4300024: PinSlot09
+    4300026: panelFrame
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
