@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 9fa477a862431564484aae4baa972347
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Box
+    100004: Light
+    100006: Wire01
+    100008: Wire02
+    100010: Wire03
+    100012: Wire04
+    100014: Wire05
+    100016: Bomb
+    100018: Line001
+    100020: Beeper
+    100022: BoomOMeter
+    100024: Cutter
+    100026: CutterLeft
+    100028: CutterRight
+    100030: Wire01Cut
+    100032: Wire02Cut
+    100034: Wire03Cut
+    100036: Wire04Cut
+    100038: Wire05Cut
+    100040: CutWire01
+    100042: CutWire02
+    100044: CutWire03
+    100046: CutWire04
+    100048: CutWire05
+    100050: Wire06
+    100052: Wire06Cut
+    100054: Wire07
+    100056: Wire07Cut
+    100058: Wire08
+    100060: Wire08Cut
+    100062: Wire09
+    100064: Wire09Cut
+    100066: Wire10
+    100068: Wire10Cut
+    100070: copper
+    100072: copper 1
+    100074: copper 2
+    100076: copper 3
+    100078: copper 4
+    400000: //RootNode
+    400002: Box
+    400004: Light
+    400006: Wire01
+    400008: Wire02
+    400010: Wire03
+    400012: Wire04
+    400014: Wire05
+    400016: Bomb
+    400018: Line001
+    400020: Beeper
+    400022: BoomOMeter
+    400024: Cutter
+    400026: CutterLeft
+    400028: CutterRight
+    400030: Wire01Cut
+    400032: Wire02Cut
+    400034: Wire03Cut
+    400036: Wire04Cut
+    400038: Wire05Cut
+    400040: CutWire01
+    400042: CutWire02
+    400044: CutWire03
+    400046: CutWire04
+    400048: CutWire05
+    400050: Wire06
+    400052: Wire06Cut
+    400054: Wire07
+    400056: Wire07Cut
+    400058: Wire08
+    400060: Wire08Cut
+    400062: Wire09
+    400064: Wire09Cut
+    400066: Wire10
+    400068: Wire10Cut
+    400070: copper
+    400072: copper 1
+    400074: copper 2
+    400076: copper 3
+    400078: copper 4
+    2300000: //RootNode
+    2300002: Box
+    2300004: Light
+    2300006: Wire01
+    2300008: Wire02
+    2300010: Wire03
+    2300012: Wire04
+    2300014: Wire05
+    2300016: Bomb
+    2300018: Beeper
+    2300020: BoomOMeter
+    2300022: CutterLeft
+    2300024: CutterRight
+    2300026: Wire01Cut
+    2300028: Wire02Cut
+    2300030: Wire03Cut
+    2300032: Wire04Cut
+    2300034: Wire05Cut
+    2300036: CutWire01
+    2300038: CutWire02
+    2300040: CutWire03
+    2300042: CutWire04
+    2300044: CutWire05
+    2300046: Wire06
+    2300048: Wire06Cut
+    2300050: Wire07
+    2300052: Wire07Cut
+    2300054: Wire08
+    2300056: Wire08Cut
+    2300058: Wire09
+    2300060: Wire09Cut
+    2300062: Wire10
+    2300064: Wire10Cut
+    2300066: copper
+    2300068: copper 1
+    2300070: copper 2
+    2300072: copper 3
+    2300074: copper 4
+    3300000: //RootNode
+    3300002: Box
+    3300004: Light
+    3300006: Wire01
+    3300008: Wire02
+    3300010: Wire03
+    3300012: Wire04
+    3300014: Wire05
+    3300016: Bomb
+    3300018: Beeper
+    3300020: BoomOMeter
+    3300022: CutterLeft
+    3300024: CutterRight
+    3300026: Wire01Cut
+    3300028: Wire02Cut
+    3300030: Wire03Cut
+    3300032: Wire04Cut
+    3300034: Wire05Cut
+    3300036: CutWire01
+    3300038: CutWire02
+    3300040: CutWire03
+    3300042: CutWire04
+    3300044: CutWire05
+    3300046: Wire06
+    3300048: Wire06Cut
+    3300050: Wire07
+    3300052: Wire07Cut
+    3300054: Wire08
+    3300056: Wire08Cut
+    3300058: Wire09
+    3300060: Wire09Cut
+    3300062: Wire10
+    3300064: Wire10Cut
+    3300066: copper
+    3300068: copper 1
+    3300070: copper 2
+    3300072: copper 3
+    3300074: copper 4
+    4300000: Bomb
+    4300002: Box
+    4300004: Light
+    4300006: Wire03
+    4300008: Wire01
+    4300010: Wire04
+    4300012: Wire05
+    4300014: Wire02
+    4300016: Beeper
+    4300018: CutterRight
+    4300020: CutterLeft
+    4300022: BoomOMeter
+    4300024: Wire01Cut
+    4300026: Wire03Cut
+    4300028: Wire04Cut
+    4300030: Wire05Cut
+    4300032: Wire02Cut
+    4300034: CutWire02
+    4300036: CutWire05
+    4300038: CutWire04
+    4300040: CutWire03
+    4300042: CutWire01
+    4300044: Wire06
+    4300046: Wire06Cut
+    4300048: Wire07
+    4300050: Wire07Cut
+    4300052: Wire08
+    4300054: Wire08Cut
+    4300056: Wire09
+    4300058: Wire09Cut
+    4300060: Wire10
+    4300062: Wire10Cut
+    4300064: copper
+    4300066: copper
+    4300068: copper
+    4300070: copper
+    4300072: copper
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 1
+  userData: 
