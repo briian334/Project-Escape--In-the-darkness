@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class Int_ObjectSelected : MonoBehaviour
 {
     #region Global Variables
+    public static Int_ObjectSelected Instance { get; private set; }
     private PlayerInput _pyiPlayerInput; //DEFINE LOS CONTROLES DEL JUGADOR
     public Ray rayDetectInteractable; //RAYO QUE DETECTA OBJETOS INTERACTUABLES
     public LayerMask layLayerInteractable; //CAPA INTERACTUABLE DEL OBJETO (ASIGNAR EN INSPECTOR)
@@ -26,6 +27,14 @@ public class Int_ObjectSelected : MonoBehaviour
     private Vector3 _ve3OriginalPosition; //POSICION ORIGINAL DEL JUGADOR ANTES DE ESCONDERSE
     [SerializeField] private ControladorJuego controladorJuego;
     #endregion
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         //SE INICIALIZAN LAS VARIABLES
@@ -47,7 +56,7 @@ public class Int_ObjectSelected : MonoBehaviour
             }
             //OBTIENE EL OBJETO GOLPEADO POR EL RAYO
             Transform traHitObject = _ryhPointCollison.collider.transform;
-            if (traHitObject.TryGetComponent<Outline>(out Outline o))
+            if (traHitObject.GetComponentInParent<Outline>())
             {
 
             }
