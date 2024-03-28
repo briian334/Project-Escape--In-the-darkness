@@ -1,5 +1,4 @@
 using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,24 +7,35 @@ public class Int_ObjectSelected : MonoBehaviour
 {
     #region Global Variables
     public static Int_ObjectSelected Instance { get; private set; }
-    private PlayerInput _pyiPlayerInput; //DEFINE LOS CONTROLES DEL JUGADOR
-    public Ray rayDetectInteractable; //RAYO QUE DETECTA OBJETOS INTERACTUABLES
-    public LayerMask layLayerInteractable; //CAPA INTERACTUABLE DEL OBJETO (ASIGNAR EN INSPECTOR)
-    [SerializeField] float numMaxDistanceRay = 0.5f; //DISTANCIA DEL RAYO PARA SELECCIONAR OBJETOS
-    public Camera camMainCamera; //CAMARA PRINCIPAL PARA EMITIR EL RAYO DESDE ESA POSICION
-    private Transform _traTransformCollision; //TRANSFORMACION DEL OBJETO COLISIONADO
-    public GameObject gamCameraFollowTarget; //OBJETO QUE SIGUE LA VIRTUAL CAMERA DEL JUGADOR
-    private CinemachineBasicMultiChannelPerlin _cbmVirtualCameraNoise; //PROPIEDAD QUE HACE FLOTAR LA CAMARA SIMULANDO RESPIRACION
-    public CinemachineVirtualCamera cvcVirtualCamera; //CAMARA VIRTUAL DEL JUGADOR
-    private Transform _traHighlightedObject; //OBJETO RESALTADO POR EL OUTLINE
-    private RaycastHit _ryhPointCollison; //COLISION DEL RAYO
+    private PlayerInput _pyiPlayerInput;
+    public Ray rayDetectInteractable;
+    public LayerMask layLayerInteractable;
+    [SerializeField] float numMaxDistanceRay = 0.5f;
+    public Camera camMainCamera;
+    private Transform _traTransformCollision;
+    public GameObject gamCameraFollowTarget;
+    private CinemachineBasicMultiChannelPerlin _cbmVirtualCameraNoise;
+    public CinemachineVirtualCamera cvcVirtualCamera;
+    private Transform _traHighlightedObject;
+    private RaycastHit _ryhPointCollison;
     #endregion
     #region Hidding Variables   
-    public GameObject gamHideSpot; //EL PUNTO DE VISTA DENTRO DEL CASILLERO (ASIGNAR EN INSPECTOR)
-    public bool booIsHiding = false; //ESTADO ESCONDIDO
-    private Quaternion _quaOriginalRotation; //ROTACION ORIGINAL DE LA CAMARA ANTES DE ESCONDERSE
-    private Vector3 _ve3OriginalPosition; //POSICION ORIGINAL DEL JUGADOR ANTES DE ESCONDERSE
+    public GameObject gamHideSpot;
+    public bool booIsHiding = false;
+    private Quaternion _quaOriginalRotation;
+    private Vector3 _ve3OriginalPosition;
     [SerializeField] private ControladorJuego controladorJuego;
+    [SerializeField] private Fade fade;
+
+
+    // Variables para el efecto de claustrofobia
+    [SerializeField] private float maxBreathIntensity = 1f; // Intensidad máxima de la respiración
+    //[SerializeField] private float breathIncreaseRate = 0.3f; // Tasa de aumento de la intensidad de la respiración
+    [SerializeField] private float maxBreathRepeatInterval = 2f; // Intervalo máximo entre respiraciones
+    private float currentBreathIntensity = 0f; // Intensidad actual de la respiración
+    private float breathTimer = 0f; // Temporizador para controlar la duración del aumento de la intensidad de la respiración
+    private float breathRepeatTimer = 0f; // Temporizador para controlar la repetición de la respiración
+    private bool isBreathing = false; // Indicador de si el personaje está respirando
     #endregion
 
     private void Awake()
@@ -35,26 +45,25 @@ public class Int_ObjectSelected : MonoBehaviour
             Instance = this;
         }
     }
+
     private void Start()
     {
-        //SE INICIALIZAN LAS VARIABLES
         _pyiPlayerInput = GetComponent<PlayerInput>();
         _cbmVirtualCameraNoise = cvcVirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
+
     void Update()
     {
-        //CREA UN RAYO PARA DETECTAR OBJETOS INTERACTUABLES
         rayDetectInteractable = new(camMainCamera.transform.position, camMainCamera.transform.forward);
-        //VISUALIZA EL RAYO EN EL EDITOR PARA DEPURACI�N (NO VISIBLE EN EL JUEGO)
         Debug.DrawRay(rayDetectInteractable.origin, rayDetectInteractable.direction * numMaxDistanceRay, Color.white);
-        //COMPRUEBA SI EL RAYO COLISIONA CON UN OBJETO INTERACTUABLE Y SI EL JUGADOR PRECIONA LA TECLA DE INTERACCI�N
+
         if (Physics.Raycast(rayDetectInteractable.origin, rayDetectInteractable.direction, out _ryhPointCollison, numMaxDistanceRay, layLayerInteractable))
         {
             if (_ryhPointCollison.collider.gameObject.layer != LayerMask.NameToLayer("Interactable"))
             {
                 return;
             }
-            //OBTIENE EL OBJETO GOLPEADO POR EL RAYO
+
             Transform traHitObject = _ryhPointCollison.collider.transform;
             if (traHitObject.GetComponentInParent<Outline>())
             {
@@ -65,88 +74,124 @@ public class Int_ObjectSelected : MonoBehaviour
                 Debug.Log("No tiene script outline...");
                 return;
             }
-            //SI NO ESTA ESCONDIDO SE ACTIVA EL DELINEADO
+
             if (!booIsHiding)
             {
-                //ACTIVA EL DELINEADO DEL OBJETO GOLPEADO
                 traHitObject.GetComponentInParent<Outline>().enabled = true;
-            }            
-            //DESACTIVA EL DELINEADO DEL OBJETO ANTERIOR GOLPEADO
+            }
+
             if (_traHighlightedObject != null && _traHighlightedObject != traHitObject)
             {
                 _traHighlightedObject.GetComponentInParent<Outline>().enabled = false;
             }
-            //ACTUALIZA EL OBJETO DELINEADO ACTUAL
+
             _traHighlightedObject = traHitObject;
 
             if (_pyiPlayerInput.actions["Interact"].WasPressedThisFrame())
             {
                 _ryhPointCollison.collider.transform.GetComponentInParent<Outline>().enabled = false;
-                //OBTIENE EL NOMBRE DE LA ETIQUETA DEL OBJETO COLISIONADO
                 string strNameTag = _ryhPointCollison.collider.tag;
-                //DETERMINA LA ACCI�N A REALIZAR SEG�N LA ETIQUETA DEL OBJETO
+
                 switch (strNameTag)
                 {
                     case "Locker":
                         try
                         {
-                            //INTENTA ENCONTRAR UN OBJETO HIJO LLAMADO "INSIDE" DENTRO DEL CASILLERO PARA POSICIONAR LA C�MARA
                             _traTransformCollision = _ryhPointCollison.transform.Find("Inside");
-                            FnHiding(_traTransformCollision); //LLAMA A LA FUNCI�N PARA ESCONDERSE EN EL CASILLERO
+                            FnHiding(_traTransformCollision);
                         }
                         catch (System.Exception)
                         {
-                            //MANEJA CUALQUIER EXCEPCI�N QUE OCURRA AL BUSCAR EL OBJETO "INSIDE"
                             return;
                         }
                         break;
                     case "Puzzle":
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            // Send a function to the object we are aiming at
                             _ryhPointCollison.transform.gameObject.SendMessage("ActivateObject", 0, SendMessageOptions.DontRequireReceiver);
                         }
                         break;
                     default:
-                        //SI NO ES UNA OPCION INTERACTUABLE, NO HACE NADA
                         return;
                 }
             }
         }
         else
         {
-            //SI EL RAYO NO COLISIONA CON UN OBJETO INTERACTUABLE, DESACTIVA EL DELINEADO ACTUAL
             if (_traHighlightedObject != null)
             {
                 _traHighlightedObject.GetComponentInParent<Outline>().enabled = false;
                 _traHighlightedObject = null;
             }
         }
-    }
-    public void FnHiding(Transform ptraHideSpot)
-    {
-        //ALTERNAR ENTRE ESCONDERSE Y NO ESCONDERSE
-        booIsHiding = !booIsHiding;
-        //SI EL JUGADOR SE EST� ESCONDIENDO, LE DICE AL JUGADOR QUE SE ESCONDA Y LE DA LA UBICACI�N DEL PUNTO DE VISTA DENTRO DE ESTE CASILLERO
+
+        // Aplicar efecto de claustrofobia si el jugador está dentro del locker
         if (booIsHiding)
         {
-            //GUARDA LA POSICI�N Y ROTACI�N ORIGINALES DEL OBJETO QUE LA C�MARA EST� SIGUIENDO
+            IncreaseBreathIntensity(); // Aumentar la intensidad de la respiración
+            _cbmVirtualCameraNoise.m_AmplitudeGain = currentBreathIntensity; // Aplicar el ruido de la cámara según la intensidad de la respiración
+
+            if (!isBreathing && breathRepeatTimer >= maxBreathRepeatInterval)
+            {
+                StartBreathing();
+            }
+        }
+
+        if (isBreathing)
+        {
+            breathRepeatTimer += Time.deltaTime;
+            if (breathRepeatTimer >= maxBreathRepeatInterval)
+            {
+                breathRepeatTimer = 0f;
+                isBreathing = false;
+            }
+        }
+    }
+
+    public void FnHiding(Transform ptraHideSpot)
+    {
+        booIsHiding = !booIsHiding;
+
+        if (booIsHiding)
+        {
             _ve3OriginalPosition = gamCameraFollowTarget.transform.position;
             _quaOriginalRotation = gamCameraFollowTarget.transform.rotation;
-            //DESACTIVA EL RUIDO DE LA C�MARA VIRTUAL
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.05f;
-            //MUEVE Y ROTA EL OBJETO QUE LA C�MARA DE CINEMACHINE EST� SIGUIENDO AL PUNTO DE VISTA DENTRO DEL CASILLERO
             gamCameraFollowTarget.transform.SetPositionAndRotation(ptraHideSpot.transform.position, ptraHideSpot.transform.rotation);
             controladorJuego.ActivarTemporizador();
+            breathTimer = 0f; // Reiniciar el temporizador de la respiración al entrar al casillero
+            fade.Blink2();
+            
         }
-        //DE LO CONTRARIO, LE DICE AL JUGADOR QUE DEJE DE ESCONDERSE
         else
         {
-            //MUEVE Y ROTA EL OBJETO QUE LA C�MARA DE CINEMACHINE EST� SIGUIENDO DE VUELTA A SU POSICI�N Y ROTACI�N ORIGINAL
             gamCameraFollowTarget.transform.SetPositionAndRotation(_ve3OriginalPosition, _quaOriginalRotation);
-            //DESACTIVA EL RUIDO DE LA C�MARA VIRTUAL
             _cbmVirtualCameraNoise.m_AmplitudeGain = 0.5f;
             controladorJuego.DesactivarTemporizador();
+            currentBreathIntensity = 0f; // Reiniciar la intensidad de la respiración al salir del locker
+            fade.FadeOut2();
+
         }
+    }
+
+    private void IncreaseBreathIntensity()
+    {
+        // Incrementar la intensidad de la respiración gradualmente hasta alcanzar la intensidad máxima
+        if (currentBreathIntensity < maxBreathIntensity)
+        {
+            breathTimer += Time.deltaTime;
+            currentBreathIntensity = Mathf.Lerp(0f, maxBreathIntensity, breathTimer / 2f); // Ajusta el 5f al tiempo deseado para el aumento
+        }
+        else
+        {
+            currentBreathIntensity = maxBreathIntensity; // Mantener la intensidad en el máximo después de alcanzarlo
+        }
+    }
+
+    private void StartBreathing()
+    {
+        isBreathing = true;
+        breathRepeatTimer = 0f; // Reiniciar el temporizador de repetición de la respiración
+        // Aquí puedes reproducir un sonido de respiración o realizar otras acciones relacionadas con la respiración
     }
 }
